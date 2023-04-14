@@ -12,7 +12,7 @@ def login(email: str, senha: str):
 
 @app.post("/cadastro")
 def cadastro(nome_completo: str, email: str, confirmacao_email: str, senha: str, confirmacao_senha: str):
-    if email == confirmacao_email & senha == confirmacao_email:
+    if email == confirmacao_email & senha == confirmacao_senha:
         # atribuir variavel para devolver o return do metodo
         implement.cadastrar_usuario(nome_completo, email, senha)
         return
