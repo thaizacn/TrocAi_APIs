@@ -5,6 +5,8 @@ A ideia é que o nosso pequeno projeto cresça e abranja outras universidades fu
 
 #
 
+![image](https://user-images.githubusercontent.com/77704621/231918423-52f5a365-0c52-4054-875e-cc0d2be3b05a.png)
+
 👉🏼 <a href = "itegracaoAPIs"> Acesse todas as APIs desenvolvidas </a> <br>
 Criamos com muito entusiasmo todos os endpoints para os serviços essenciais da nossa plataforma. Toda a parte de pseudocódigo detalhada de como foram pensadas estarão no [Notion](https://www.notion.so/TrocA-nome-provis-rio-93515d4612b148b798cc581e53f46d2b).
 
