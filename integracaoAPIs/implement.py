@@ -5,7 +5,7 @@ def login_usuario(email: str, senha: str):
     #Caso não encontre, retornar false
     return 
 
-def cadastrar_usuario(nome_completo: str, data_nascimento: str, email: str, confirmacao_email: str, senha: str, confirmacao_senha: str):
+def cadastrar_usuario(nome_completo: str, email: str, confirmacao_email: str, senha: str, confirmacao_senha: str):
     # Validar informações (exemplo: verificar se email é único)
     if verificar_email(email):
         # Cadastrar usuário no banco de dados (exemplo: salvar em arquivo, inserir no banco de dados, etc.)
@@ -14,7 +14,7 @@ def cadastrar_usuario(nome_completo: str, data_nascimento: str, email: str, conf
             'email': email,
             'senha': senha
         }
-        adicionar_usuario(usuario)
+        inclusao_banco(usuario)
         print("Usuário cadastrado com sucesso!")
     else:
         print("Este email já está em uso. Por favor, tente novamente.")
@@ -26,5 +26,9 @@ def verificar_email(email):
     return True
 
 # TO-DO lógica para adicionar no BD
-def adicionar_usuario(usuario):
+def inclusao_banco(any):
     pass
+
+def registrar_produto(item: str, descricao: str, data_entrada: str):
+    inclusao_banco(item, descricao, data_entrada)
+    return print("Produto incluído com sucesso!")
