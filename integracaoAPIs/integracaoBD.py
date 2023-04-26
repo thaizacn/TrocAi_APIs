@@ -2,7 +2,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from models import Base, Usuarios, Itens, AvaliacoesPlataforma, Operacoes, Mensagens, AvaliacoesOperacao
-from PIL import image
+from PIL import Image
+import io
+from subprocess import run
 
 SQLALCHEMY_DATABASE_URL = "mysql://adm_trocai:123456@localhost:3306/trocai"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
@@ -13,8 +15,29 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-def consulta_banco(any):
-    pass
+class ConsultaBanco():
+    def __init__(self):
+        pass
+    
+    @classmethod
+    def exibir_feed_itens():
+        pass
+
+    @classmethod
+    def pesquisar_itens():
+        pass
+
+    @classmethod
+    def exibir_itens_usuario():
+        pass
+
+    @classmethod
+    def exibir_mensagens():
+        pass
+
+    @classmethod
+    def exibir_operacoes_realizadas():
+        pass
 
 
 class InclusaoBanco():
@@ -59,18 +82,25 @@ class InclusaoBanco():
         
 
 
+
+
+## Para inserir uma imagem, devemos transformar em um arquivo binário:
+
+# with open('media/toritama-crop.jpeg', 'rb') as file:
+#     image_bytes = file.read()
+
+# Levar em conta o tamanho da imagem a ser armazenada
+
+# InclusaoBanco.adicionar_usuario('Celso', 'celso@gmail.com', '12345678', image_bytes)
+
 ## teste de consulta (SELECT)
 
-# resultados = session.query(Usuarios).all()
+resultados = session.query(Usuarios).all()
 
-# for resultado in resultados:
-#     print('ID:',resultado.id)
-#     print('Nome: ',resultado.nome)
-#     print('E-mail: ', resultado.email)
-#     print('Senha: ', resultado.senha)
-#     print('################')
-
-##
-
-InclusaoBanco.adicionar_usuario('Carlos', 'carlos@gmail.com', 'senhasenha')
+for resultado in resultados:
+    print('ID:',resultado.id)
+    print('Nome: ',resultado.nome)
+    print('E-mail: ', resultado.email)
+    print('Senha: ', resultado.senha)
+    print('################')
 
