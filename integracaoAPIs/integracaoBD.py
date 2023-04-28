@@ -16,7 +16,7 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 class ConsultaBanco():
-    def __init__(self):
+    def __init__(cls):
         pass
     
     @classmethod
@@ -70,7 +70,7 @@ class ConsultaBanco():
 
 
 class InclusaoBanco():
-    def __init__(self):
+    def __init__(cls):
         pass
     
     @classmethod
@@ -92,8 +92,8 @@ class InclusaoBanco():
         session.commit()
 
     @classmethod
-    def adicionar_operacao(cls, id_item, id_item_2):
-        nova_operacao = Operacoes(id_item=id_item, id_item_2=id_item_2)
+    def adicionar_operacao(cls, id_item, id_item_2, id_receptor):
+        nova_operacao = Operacoes(id_item=id_item, id_item_2=id_item_2, id_receptor=id_receptor)
         session.add(nova_operacao)
         session.commit()
 
@@ -110,6 +110,7 @@ class InclusaoBanco():
         session.commit()
 
 
+
 '''
 
 ## teste de inserção:
@@ -120,8 +121,8 @@ class InclusaoBanco():
 with open('imagem.png', 'rb') as file:
     image_bytes = file.read()
 InclusaoBanco.adicionar_item('kit de ferramenta', 'pra você desmotar o que quiser', 1, image_bytes)
-
-
+InclusaoBanco.adicionar_avalicao_plataforma('Não curti :/', 2, 5)
+InclusaoBanco.adicionar_operacao(7, None, 3)
 InclusaoBanco.adicionar_avalicao_operacao('Não voltaria a trocar', 2, 3, 1)
 InclusaoBanco.adicionar_usuario('Celso', 'celso@gmail.com', '12345678', image_bytes)
 InclusaoBanco.adicionar_mensagem('Testando :)', 1, 4)
