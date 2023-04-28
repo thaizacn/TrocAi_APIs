@@ -1,10 +1,6 @@
 from sqlalchemy import create_engine, or_, and_
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, joinedload, aliased
 from models import Base, Usuarios, Itens, AvaliacoesPlataforma, Operacoes, Mensagens, AvaliacoesOperacao
-from PIL import Image
-import io
-from subprocess import run
 
 SQLALCHEMY_DATABASE_URL = "mysql://adm_trocai:123456@localhost:3306/trocai"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
