@@ -9,10 +9,15 @@ class Usuarios(Base):
     __tablename__ = "usuarios"
 
     id = Column(Integer, primary_key=True, index=True, nullable=False)
-    nome = Column(String(100), nullable=False)
+    nome_completo = Column(String(100), nullable=False)
+    nome_de_usuario = Column(String(20), unique=True, nullable=False)
     email = Column(String(100), unique=True, index=True, nullable=False)
     senha = Column(String(20), index=True, nullable=False)
     imagem = Column(LargeBinary)
+
+    operacoes = relationship('Operacoes', back_populates='usuarios')
+    itens = relationship('Itens', back_populates='usuarios')
+
 
 
 class Itens(Base):
@@ -28,6 +33,9 @@ class Itens(Base):
 
     # relacionamentos:
     usuarios = relationship('Usuarios', foreign_keys=[id_usuario])
+
+
+
     
 
 class AvaliacoesPlataforma(Base):
@@ -47,10 +55,13 @@ class Operacoes(Base):
     id = Column(Integer, primary_key=True, index=True, nullable=False)
     id_item = Column(Integer, ForeignKey('itens.id'), nullable=False)
     id_item_2 = Column(Integer, ForeignKey('itens.id'))
+    id_receptor = Column(Integer, ForeignKey('usuarios.id'))
     data_e_hora = Column(DateTime, default=datetime.now(), nullable=False)
 
     itens = relationship('Itens', foreign_keys=[id_item])
     itens_2 = relationship('Itens',foreign_keys=[id_item_2])
+    usuarios = relationship('Usuarios',foreign_keys=[id_receptor], back_populates='operacoes')
+
 
 
 class Mensagens(Base):
