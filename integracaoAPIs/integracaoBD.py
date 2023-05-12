@@ -1,8 +1,9 @@
 from sqlalchemy import create_engine, or_, and_
 from sqlalchemy.orm import sessionmaker, joinedload, aliased
 from models import Base, Usuarios, Itens, AvaliacoesPlataforma, Operacoes, Mensagens, AvaliacoesOperacao
+import codecs
 
-SQLALCHEMY_DATABASE_URL = "mysql://adm_trocai:123456@localhost:3306/trocai"
+SQLALCHEMY_DATABASE_URL = "mysql://Thai:Thaiza021002@localhost:3306/trocai"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 # Base.metadata.create_all(engine)
@@ -70,16 +71,24 @@ class InclusaoBanco():
         pass
     
     @classmethod
-    def adicionar_usuario(cls, nome, email, senha, imagem=None):
-        novo_usuario = Usuarios(nome=nome, email=email, senha=senha, imagem=imagem)
+    def adicionar_usuario(cls, nome, nome_usuario, email, senha, imagem=None):
+        novo_usuario = Usuarios(nome_completo=nome, nome_de_usuario=nome_usuario, email=email, senha=senha, imagem=imagem)
         session.add(novo_usuario)
         session.commit()
+        session.flush()
+        session.refresh(novo_usuario)
+        user_id = novo_usuario.id
+        return user_id
         
     @classmethod
     def adicionar_item(cls, item, descricao, id_usuario, imagem):
         novo_item = Itens(item=item, descricao=descricao, id_usuario=id_usuario, imagem=imagem)
         session.add(novo_item)
         session.commit()
+        session.flush()
+        session.refresh(novo_item)
+        item_id = novo_item.id
+        return item_id
         
     @classmethod
     def adicionar_avalicao_plataforma(cls, conteudo, nota, id_usuario):

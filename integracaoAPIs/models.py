@@ -29,14 +29,14 @@ class Itens(Base):
     descricao = Column(String(255), nullable=False)
     data_entrada = Column(Date, default=date.today(), nullable=False)
     id_usuario = Column(Integer, ForeignKey('usuarios.id'), nullable=False)
-    imagem = Column(LargeBinary, nullable=False)
+    imagem = Column(String(250), nullable=False)
 
     # relacionamentos:
     usuarios = relationship('Usuarios', foreign_keys=[id_usuario])
 
 
 
-    
+
 
 class AvaliacoesPlataforma(Base):
     __tablename__ = "avaliacoes_plataforma"

@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `trocai`.`itens` (
   `descricao` VARCHAR(255) NOT NULL,
   `data_entrada` DATE NOT NULL,
   `id_usuario` INT NOT NULL,
-  `imagem` BLOB NOT NULL,
+  `imagem` VARCHAR(250) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_itens_1_idx` (`id_usuario` ASC),
   CONSTRAINT `fk_itens_1`
