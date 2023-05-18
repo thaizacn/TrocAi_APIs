@@ -20,19 +20,15 @@ def cadastrar_usuario(nome_completo: str, nome_usuario: str, email: str, senha: 
     else:
         id = integracaoBD.InclusaoBanco.adicionar_usuario(nome_completo, nome_usuario, email, senha)
         return {"message": "Usuário cadastrado com sucesso!", "id_usuario": {id}}
-    
-# REALIZA CONSULTA DE USUÁRIO
-def consulta_usuario(email: str, senha: str):
-    return integracaoBD.ConsultaBanco.consultar_dados_login(email, senha)
 
 # REGISTRA AVALIAÇÃO SOBRE A PLATAFORMA
-def avaliacao_plataforma(id_usuario: int, comentario: str, nota: int):
-    integracaoBD.InclusaoBanco.adicionar_avalicao_plataforma(comentario, nota, id_usuario)
+def avaliacao_plataforma(conteudo: str, nota: int, id_usuario: int):
+    integracaoBD.InclusaoBanco.adicionar_avalicao_plataforma(conteudo, nota, id_usuario)
     return {"message": "Avaliação registrada com sucesso!"} 
 
 # REGISTRA AVALIAÇÃO SOBRE A OPERAÇÃO
-def avaliacao_operacao(id_usuario: int, id_operacao: int, comentario: str, nota: int):
-    integracaoBD.InclusaoBanco.adicionar_avalicao_operacao(comentario, nota, id_operacao, id_usuario)
+def avaliacao_operacao(id_item: int, id_item_2: int, id_receptor: int):
+    integracaoBD.InclusaoBanco.adicionar_avalicao_operacao(id_item, id_item_2, id_receptor)
     return {"message": "Avaliação registrada com sucesso!"} 
 
 # CONSULTA ID OPERAÇÃO
@@ -56,6 +52,6 @@ def registrar_produto(item: str, descricao: str, id_usuario: int, imagem: Upload
     return {"message": "Item incluso com sucesso!", "id_item": {id_item}}
 
 # ADICIONA MENSAGEM
-def mensagens():
-    integracaoBD.InclusaoBanco.adicionar_mensagem()
+def mensagens(conteudo: str, id_remetente: int, id_destinatario: int):
+    integracaoBD.InclusaoBanco.adicionar_mensagem(conteudo, id_remetente, id_destinatario)
     return {"message": "Mensagem adicionada com sucesso!"} 
