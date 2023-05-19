@@ -1,29 +1,53 @@
-from fastapi import FastAPI
-from datetime import datetime
-import cadastroUsuario
-import registroProdutos
+from fastapi import FastAPI, HTTPException, status, UploadFile
+from fastapi.responses import JSONResponse
+import services
 
 app = FastAPI()
 
 @app.get("/login")
 def login(email: str, senha: str):
-    # atribuir variavel para devolver o return do metodo
-    cadastroUsuario.login_usuario
-    return 
+    return services.login_usuario(email, senha)
 
 @app.post("/cadastro")
-def cadastro(nome_completo: str, email: str, confirmacao_email: str, senha: str, confirmacao_senha: str):
-    if email == confirmacao_email & senha == confirmacao_senha:
-        # atribuir variavel para devolver o return do metodo
-        cadastroUsuario.cadastrar_usuario(nome_completo, email, senha)
-        return
+def cadastro(nome_completo: str, nome_usuario: str, email: str, confirmacao_email: str, senha: str, confirmacao_senha: str):
+    if email == confirmacao_email and senha == confirmacao_senha:
+        #TO-DO nome de usuário único: voltará none
+        return services.cadastrar_usuario(nome_completo, nome_usuario, email, senha)
     else:
-        print("Email e senha não coincidem, favor revisar")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email e senha não coincidem, favor revisar")
+    
+@app.get("/consulta_usuario")
+def consulta_usuario(email: str):
+    return services.consulta_usuario(email)
 
 @app.post("/registro")
-def registro_produto(item: str, descricao: str, data_entrada: str):
-    #TO-DO amadurecer lógica para imagem
-    data_formatada = datetime.strptime(data_entrada, "%d/%m/%Y")
-    # atribuir variavel para devolver o return do metodo
-    registroProdutos.registrar_produto(item, descricao, data_entrada)
-    return 
+def registro_produto(item: str, descricao: str, id: int, imagem: UploadFile = None):
+    return services.registrar_produto(item, descricao, id, imagem)
+
+@app.post("/mensagem")
+def mensagem(conteudo: str, id_remetente: int, id_destinatario: int):
+    return services.mensagem(conteudo, id_remetente, id_destinatario)
+
+@app.get("/consulta_mensagem")
+def consulta_mensagem(id_remetente: int, id_destinatario: int):
+    return services.consulta_mensagem(id_remetente, id_destinatario)
+
+@app.post("/avaliacao_plataforma")
+def avaliacao_plataforma(conteudo: str, nota: int, id_usuario: int):
+    return services.avaliacao_plataforma(conteudo, nota, id_usuario)
+
+@app.post("/avaliacao_operacao")
+def avaliacao_operacao(id_item: int, id_item_2: int, id_receptor: int):
+    return services.avaliacao_operacao(id_item, id_item_2, id_receptor)
+
+@app.get("/consulta_operacao")
+def consulta_operacao(id_usuario: int):
+    return JSONResponse(services.consulta_operacao(id_usuario))
+
+@app.get("/consulta_feed")
+def consulta_feed():
+    return services.consulta_feed()
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app)
