@@ -24,6 +24,10 @@ def registro_produto(item: str, descricao: str, id: int, imagem: UploadFile = No
 def mensagem(conteudo: str, id_remetente: int, id_destinatario: int):
     return services.mensagem(conteudo, id_remetente, id_destinatario)
 
+@app.get("/consulta_mensagem")
+def consulta_mensagem(id_remetente: int, id_destinatario: int):
+    return services.consulta_mensagem(id_remetente, id_destinatario)
+
 @app.post("/avaliacao_plataforma")
 def avaliacao_plataforma(conteudo: str, nota: int, id_usuario: int):
     return services.avaliacao_plataforma(conteudo, nota, id_usuario)

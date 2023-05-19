@@ -64,11 +64,7 @@ def consulta_operacao(id_usuario: int):
         'trocas': trocas
     }
 
-    # Converter o dicionário em formato JSON
-    json_resultado = json.dumps(resultado, ensure_ascii=False)
-
-    print(json_resultado)
-    return json_resultado
+    return resultado
     
 
 # REGISTRA UM PRODUTO
@@ -90,6 +86,10 @@ def registrar_produto(item: str, descricao: str, id_usuario: int, imagem: Upload
 def mensagens(conteudo: str, id_remetente: int, id_destinatario: int):
     integracaoBD.InclusaoBanco.adicionar_mensagem(conteudo, id_remetente, id_destinatario)
     return {"message": "Mensagem adicionada com sucesso!"} 
+
+# VISUALIZA MENSAGEM
+def consulta_mensagem(id_remetente: int, id_destinatario: int):
+    return integracaoBD.ConsultaBanco.exibir_mensagens(id_remetente, id_destinatario)
 
 # CONSULTA FEED
 def consulta_feed():
