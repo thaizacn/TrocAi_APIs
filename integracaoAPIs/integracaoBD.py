@@ -171,7 +171,6 @@ for pesquisa in pesquisa_itens:
     print(pesquisa.item)
     print(pesquisa.descricao)
 
-
 consulta_trocas, consulta_doacoes = ConsultaBanco.exibir_operacoes_realizadas(1)
 
 
@@ -190,4 +189,5 @@ for operacao, item1, item2 in consulta_trocas:
         f"Dono do Item 1: {item1.usuarios.nome_completo} | "
         f"Dono do Item 2: {item2.usuarios.nome_completo}"
     )
+
 '''

@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, status, UploadFile
+from fastapi.responses import JSONResponse
 import services
 
 app = FastAPI()
@@ -33,7 +34,7 @@ def avaliacao_operacao(id_item: int, id_item_2: int, id_receptor: int):
 
 @app.get("/consulta_operacao")
 def consulta_operacao(id_usuario: int):
-    return services.consulta_operacao(id_usuario)
+    return JSONResponse(services.consulta_operacao(id_usuario))
 
 if __name__ == "__main__":
     import uvicorn
