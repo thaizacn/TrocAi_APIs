@@ -15,6 +15,10 @@ def cadastro(nome_completo: str, nome_usuario: str, email: str, confirmacao_emai
         return services.cadastrar_usuario(nome_completo, nome_usuario, email, senha)
     else:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email e senha não coincidem, favor revisar")
+    
+@app.get("/consulta_usuario")
+def consulta_usuario(email: str):
+    return services.consulta_usuario(email)
 
 @app.post("/registro")
 def registro_produto(item: str, descricao: str, id: int, imagem: UploadFile = None):

@@ -64,6 +64,11 @@ class ConsultaBanco():
     def consultar_dados_login(cls, email, senha):
         usuario = session.query(Usuarios).filter(Usuarios.email == email, Usuarios.senha == senha).first()
         return usuario
+    
+    @classmethod
+    def consultar_usuario(cls, email):
+        usuario = session.query(Usuarios).filter(Usuarios.email == email).first()
+        return usuario
 
 
 class InclusaoBanco():

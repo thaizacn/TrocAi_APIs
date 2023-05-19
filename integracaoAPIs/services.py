@@ -21,6 +21,10 @@ def cadastrar_usuario(nome_completo: str, nome_usuario: str, email: str, senha: 
     else:
         id = integracaoBD.InclusaoBanco.adicionar_usuario(nome_completo, nome_usuario, email, senha)
         return {"message": "Usuário cadastrado com sucesso!", "id_usuario": {id}}
+    
+# CONSULTA USUARIO
+def consulta_usuario(email: str):
+    return integracaoBD.ConsultaBanco.consultar_usuario(email)
 
 # REGISTRA AVALIAÇÃO SOBRE A PLATAFORMA
 def avaliacao_plataforma(conteudo: str, nota: int, id_usuario: int):
