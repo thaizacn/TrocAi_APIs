@@ -90,3 +90,8 @@ def registrar_produto(item: str, descricao: str, id_usuario: int, imagem: Upload
 def mensagens(conteudo: str, id_remetente: int, id_destinatario: int):
     integracaoBD.InclusaoBanco.adicionar_mensagem(conteudo, id_remetente, id_destinatario)
     return {"message": "Mensagem adicionada com sucesso!"} 
+
+# CONSULTA FEED
+def consulta_feed():
+    return integracaoBD.ConsultaBanco.exibir_itens_feed()
+    

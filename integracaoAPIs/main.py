@@ -36,6 +36,10 @@ def avaliacao_operacao(id_item: int, id_item_2: int, id_receptor: int):
 def consulta_operacao(id_usuario: int):
     return JSONResponse(services.consulta_operacao(id_usuario))
 
+@app.get("/consulta_feed")
+def consulta_feed():
+    return services.consulta_feed()
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app)
