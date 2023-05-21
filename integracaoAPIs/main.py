@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException, status, UploadFile
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
 import services
 
 app = FastAPI()
@@ -21,8 +21,20 @@ def consulta_usuario(email: str):
     return services.consulta_usuario(email)
 
 @app.post("/registro")
-def registro_produto(item: str, descricao: str, id: int, imagem: UploadFile = None):
-    return services.registrar_produto(item, descricao, id, imagem)
+def registro_produto(item: str, descricao: str, id_usuario: int, imagem: UploadFile = None):
+    return services.registrar_produto(item, descricao, id_usuario, imagem)
+
+@app.get("/consulta_registro")
+def consulta_registro(id_usuario: int):
+    return services.consulta_produto(id_usuario)
+
+@app.get("/pesquisa_itens")
+def pesquisa_itens(pesquisa: str):
+    return services.pesquisa_itens(pesquisa)
+
+@app.get("/consulta_imagem")
+def consulta_imagem(id_usuario: int, item_id: int):
+    return FileResponse(services.consulta_imagem(id_usuario, item_id))
 
 @app.post("/mensagem")
 def mensagem(conteudo: str, id_remetente: int, id_destinatario: int):
