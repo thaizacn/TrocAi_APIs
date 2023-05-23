@@ -1,7 +1,6 @@
 from sqlalchemy import create_engine, or_, and_
 from sqlalchemy.orm import sessionmaker, joinedload, aliased
 from models import Base, Usuarios, Itens, AvaliacoesPlataforma, Operacoes, Mensagens, AvaliacoesOperacao
-import codecs
 
 SQLALCHEMY_DATABASE_URL = "mysql://Thai:Thaiza021002@localhost:3306/trocai"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
@@ -69,6 +68,11 @@ class ConsultaBanco():
     def consultar_usuario(cls, email):
         usuario = session.query(Usuarios).filter(Usuarios.email == email).first()
         return usuario
+
+    @classmethod
+    def exibir_imagem(cls, id_usuario, item_id):
+        imagem = session.query(Itens.imagem).filter(Itens.id_usuario == id_usuario, Itens.id == item_id).first()
+        return imagem
 
 
 class InclusaoBanco():

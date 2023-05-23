@@ -1,6 +1,7 @@
 from models import Usuarios
 from fastapi import HTTPException, status
 from fastapi import UploadFile
+from fastapi.responses import FileResponse
 import shutil
 import os
 import integracaoBD 
@@ -85,6 +86,21 @@ def registrar_produto(item: str, descricao: str, id_usuario: int, imagem: Upload
 
     id_item = integracaoBD.InclusaoBanco.adicionar_item(item, descricao, id_usuario, caminho_arquivo)
     return {"message": "Item incluso com sucesso!", "id_item": {id_item}}
+
+# CONSULTA UM PRODUTO
+def consulta_produto(id_usuario: int):
+    return integracaoBD.ConsultaBanco.exibir_itens_usuario(id_usuario)
+
+# PESQUISA POR PRODUTOS
+def pesquisa_itens(pesquisa: str):
+    return integracaoBD.ConsultaBanco.pesquisar_itens(pesquisa)
+
+# CONSULTA IMAGEM DO PRODUTO
+def consulta_imagem(id_usuario: int, item_id: int):
+    imagem = integracaoBD.ConsultaBanco.exibir_imagem(id_usuario, item_id)
+    # Retorna a imagem como resposta
+    return imagem[0]
+    
 
 # ADICIONA MENSAGEM
 def mensagens(conteudo: str, id_remetente: int, id_destinatario: int):
