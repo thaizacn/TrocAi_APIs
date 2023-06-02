@@ -3,9 +3,10 @@ from controllers import usuario_controller, plataforma_controller, produto_contr
 
 app = FastAPI()
 
+# Inicializando rotas
 app.include_router(usuario_controller.router, prefix="/usuario")
 app.include_router(plataforma_controller.router, prefix="/plataforma")
-app.include_router(produto_controller.router, prefix="/produto")
+app.include_router(produto_controller.router, prefix="/produto") 
 
 if __name__ == "__main__":
     import uvicorn

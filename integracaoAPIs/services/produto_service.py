@@ -31,3 +31,4 @@ def consulta_imagem(id_usuario: int, item_id: int):
     imagem = integracaoBD.ConsultaBanco.exibir_imagem(id_usuario, item_id)
     # Retorna a imagem como resposta
     return imagem[0]
+

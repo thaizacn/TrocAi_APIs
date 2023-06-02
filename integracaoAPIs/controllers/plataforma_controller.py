@@ -6,7 +6,7 @@ router = APIRouter()
 
 @router.post("/publicar_mensagem")
 def mensagem(conteudo: str, id_remetente: int, id_destinatario: int):
-    return plataforma_service.mensagem(conteudo, id_remetente, id_destinatario)
+    return plataforma_service.mensagens(conteudo, id_remetente, id_destinatario)
 
 @router.get("/consultar_mensagem")
 def consulta_mensagem(id_remetente: int, id_destinatario: int):
