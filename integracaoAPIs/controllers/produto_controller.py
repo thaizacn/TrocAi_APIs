@@ -2,7 +2,6 @@ from fastapi import UploadFile, APIRouter, File, Form
 from fastapi.responses import FileResponse
 from services import produto_service
 from fastapi.staticfiles import StaticFiles
-import glob 
 
 router = APIRouter()
 
