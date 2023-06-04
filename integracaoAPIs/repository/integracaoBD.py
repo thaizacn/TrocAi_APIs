@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine, or_, and_
 from sqlalchemy.orm import sessionmaker, joinedload, aliased
-from models import Base, Usuarios, Itens, AvaliacoesPlataforma, Operacoes, Mensagens, AvaliacoesOperacao
+from models.models import Base, Usuarios, Itens, AvaliacoesPlataforma, Operacoes, Mensagens, AvaliacoesOperacao
 
 SQLALCHEMY_DATABASE_URL = "mysql://Thai:Thaiza021002@localhost:3306/trocai"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
@@ -78,7 +78,7 @@ class ConsultaBanco():
 class InclusaoBanco():
     def __init__(cls):
         pass
-    
+
     @classmethod
     def adicionar_usuario(cls, nome, nome_usuario, email, senha, imagem=None):
         novo_usuario = Usuarios(nome_completo=nome, nome_de_usuario=nome_usuario, email=email, senha=senha, imagem=imagem)
@@ -88,6 +88,16 @@ class InclusaoBanco():
         session.refresh(novo_usuario)
         user_id = novo_usuario.id
         return user_id
+    
+    @classmethod
+    def incluir_imagem(cls, id_usuario, imagem):
+        usuario = session.query(Usuarios).filter(Usuarios.id == id_usuario).first()
+
+        if usuario:
+            # Atualiza o caminho da imagem
+            usuario.imagem = imagem
+            session.commit()
+            session.refresh(usuario)
         
     @classmethod
     def adicionar_item(cls, item, descricao, id_usuario, imagem):
@@ -122,7 +132,6 @@ class InclusaoBanco():
         nova_avaliacao_operacao = AvaliacoesOperacao(comentario=comentario, nota=nota, id_operacao=id_operacao, id_usuario=id_usuario)
         session.add(nova_avaliacao_operacao)
         session.commit()
-
 
 
 '''
