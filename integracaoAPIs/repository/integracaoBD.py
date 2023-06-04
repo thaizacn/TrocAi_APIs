@@ -3,10 +3,11 @@ from sqlalchemy.orm import sessionmaker, joinedload, aliased
 from models.models import Base, Usuarios, Itens, AvaliacoesPlataforma, Operacoes, Mensagens, AvaliacoesOperacao
 import os
 
+ipbd = os.environ.get('ipbd')
 usuario = os.environ.get('usuario')
 senha = os.environ.get('senha')
 
-SQLALCHEMY_DATABASE_URL = f"mysql://{usuario}:{senha}@localhost:3306/trocai"
+SQLALCHEMY_DATABASE_URL = f"mysql://{usuario}:{senha}@{ipbd}"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 # Base.metadata.create_all(engine)
