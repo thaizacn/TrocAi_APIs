@@ -1,4 +1,4 @@
-from fastapi import UploadFile, APIRouter
+from fastapi import UploadFile, APIRouter, File, Form
 from fastapi.responses import FileResponse
 from services import produto_service
 from fastapi.staticfiles import StaticFiles
@@ -10,7 +10,7 @@ router = APIRouter()
 router.mount("/img", StaticFiles(directory="img"), name="img")
 
 @router.post("/registrar_produto")
-def registro_produto(item: str, descricao: str, id_usuario: int, imagem: UploadFile = None):
+def registro_produto(item: str = Form(...), descricao: str = Form(...), id_usuario: int = Form(...), imagem: UploadFile = File(...)):
     return produto_service.registrar_produto(item, descricao, id_usuario, imagem)
 
 @router.get("/consultar_registro")
@@ -23,4 +23,4 @@ def pesquisa_itens(pesquisa: str):
 
 @router.get("/img/{image_path}")
 def get_imagem(image_path: str):
-    return FileResponse(image_path)
+    return FileResponse(f"img/{image_path}")

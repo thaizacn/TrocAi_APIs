@@ -2,7 +2,7 @@ from sqlalchemy import create_engine, or_, and_
 from sqlalchemy.orm import sessionmaker, joinedload, aliased
 from models.models import Base, Usuarios, Itens, AvaliacoesPlataforma, Operacoes, Mensagens, AvaliacoesOperacao
 
-SQLALCHEMY_DATABASE_URL = "mysql://trocai_adm:@localhost:3306/trocai"
+SQLALCHEMY_DATABASE_URL = "mysql://trocai_adm:Senha.123@localhost:3306/trocai"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 # Base.metadata.create_all(engine)
