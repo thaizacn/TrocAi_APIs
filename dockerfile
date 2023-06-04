@@ -5,7 +5,7 @@ FROM python:3.11-slim-buster
 WORKDIR /integracapAPIs
 
 # Atualiza o sistema e instala o MySQL client
-RUN apt-get update && apt-get install -y default-libmysqlclient-dev
+RUN apt-get update && apt-get install -y default-libmysqlclient-dev gcc
 
 # Instala as dependências do projeto
 COPY requirements.txt /app/requirements.txt
