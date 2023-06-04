@@ -1,52 +1,26 @@
-from fastapi import FastAPI, HTTPException, status, UploadFile
-from fastapi.responses import JSONResponse
-import services
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from controllers import usuario_controller, plataforma_controller, produto_controller
 
 app = FastAPI()
 
-@app.get("/login")
-def login(email: str, senha: str):
-    return services.login_usuario(email, senha)
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+]
 
-@app.post("/cadastro")
-def cadastro(nome_completo: str, nome_usuario: str, email: str, confirmacao_email: str, senha: str, confirmacao_senha: str):
-    if email == confirmacao_email and senha == confirmacao_senha:
-        #TO-DO nome de usuário único: voltará none
-        return services.cadastrar_usuario(nome_completo, nome_usuario, email, senha)
-    else:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email e senha não coincidem, favor revisar")
-    
-@app.get("/consulta_usuario")
-def consulta_usuario(email: str):
-    return services.consulta_usuario(email)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-@app.post("/registro")
-def registro_produto(item: str, descricao: str, id: int, imagem: UploadFile = None):
-    return services.registrar_produto(item, descricao, id, imagem)
-
-@app.post("/mensagem")
-def mensagem(conteudo: str, id_remetente: int, id_destinatario: int):
-    return services.mensagem(conteudo, id_remetente, id_destinatario)
-
-@app.get("/consulta_mensagem")
-def consulta_mensagem(id_remetente: int, id_destinatario: int):
-    return services.consulta_mensagem(id_remetente, id_destinatario)
-
-@app.post("/avaliacao_plataforma")
-def avaliacao_plataforma(conteudo: str, nota: int, id_usuario: int):
-    return services.avaliacao_plataforma(conteudo, nota, id_usuario)
-
-@app.post("/avaliacao_operacao")
-def avaliacao_operacao(id_item: int, id_item_2: int, id_receptor: int):
-    return services.avaliacao_operacao(id_item, id_item_2, id_receptor)
-
-@app.get("/consulta_operacao")
-def consulta_operacao(id_usuario: int):
-    return JSONResponse(services.consulta_operacao(id_usuario))
-
-@app.get("/consulta_feed")
-def consulta_feed():
-    return services.consulta_feed()
+# Inicializando rotas
+app.include_router(usuario_controller.router, prefix="/usuario")
+app.include_router(plataforma_controller.router, prefix="/plataforma")
+app.include_router(produto_controller.router, prefix="/produto") 
 
 if __name__ == "__main__":
     import uvicorn
