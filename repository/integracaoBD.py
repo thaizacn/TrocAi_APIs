@@ -4,10 +4,14 @@ from models.models import Base, Usuarios, Itens, AvaliacoesPlataforma, Operacoes
 import os
 
 ipbd = os.environ.get('ipbd')
+print(ipbd)
 usuario = os.environ.get('usuario')
+print(usuario)
 senha = os.environ.get('senha')
+print(senha)
 
 SQLALCHEMY_DATABASE_URL = f"mysql://{usuario}:{senha}@{ipbd}"
+print(SQLALCHEMY_DATABASE_URL)
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 # Base.metadata.create_all(engine)
