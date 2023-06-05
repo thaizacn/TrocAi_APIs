@@ -3,6 +3,10 @@ from services import usuario_service
 
 router = APIRouter()
 
+@router.get("/hello_word")
+def hello():
+    return {"Deu": "Ceeeerto"}
+
 @router.post("/cadastrar_usuario")
 def cadastro(nome_completo: str, nome_usuario: str, email: str, confirmacao_email: str, senha: str, confirmacao_senha: str):
     if email == confirmacao_email and senha == confirmacao_senha:
