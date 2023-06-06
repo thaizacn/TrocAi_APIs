@@ -6,7 +6,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost",
-    "https://trocai.netlify.app/",
+    "https://trocai.netlify.app",
     "http://localhost:3000",
 ]
 
